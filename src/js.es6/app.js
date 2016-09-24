@@ -1,5 +1,13 @@
 const $ = require("jquery");
 
+function ajax(url) {
+  return $.ajax({
+    url,
+    type: "GET",
+    headers: { "Client-ID": "4xgieexxnaaham3kdib2a7ti96x51ae" }
+  });
+}
+
 const streamers = [
   "ESL_SC2",
   "OgamingSC2",
@@ -15,20 +23,12 @@ const streamers = [
 ];
 
 streamers.forEach(streamer =>
-  Promise.resolve($.ajax({
-    type: "GET",
-    url: `https://api.twitch.tv/kraken/streams/${streamer}`,
-    headers: { "Client-ID": "4xgieexxnaaham3kdib2a7ti96x51ae" }
-  }))
+  Promise.resolve(ajax(`https://api.twitch.tv/kraken/streams/${streamer}`))
   .then(function fulfilled(data) {
     console.log(`${streamer} is online?`);
     if (!data.stream) {
       // Make another request for channel info
-      return Promise.resolve($.ajax({
-        type: "GET",
-        url: data._links.channel,
-        headers: { "Client-ID": "4xgieexxnaaham3kdib2a7ti96x51ae" }
-      }));
+      return Promise.resolve(ajax(data._links.channel));
     }
 
     // output to list of online streamers using template
