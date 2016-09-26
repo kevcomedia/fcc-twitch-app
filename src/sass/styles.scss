@@ -1,4 +1,4 @@
-/* 
+/*
   Variables
  */
 
@@ -6,7 +6,7 @@ $bgcolor: #6441A4;
 $text-color: black;
 
 
-/* 
+/*
   Mixins
  */
 
@@ -17,8 +17,12 @@ $text-color: black;
   }
 }
 
+@mixin logo-size($size) {
+  width: $size;
+  height: $size;
+}
 
-/* 
+/*
   Rules
  */
 
@@ -50,7 +54,7 @@ body {
     padding: 10px;
     text-decoration: none;
   }
-  
+
   img {
     border-radius: 50%;
     margin: auto;
@@ -58,12 +62,10 @@ body {
       left: 0;
       right: 10px;
     }
-    width: 50px;
-    height: 50px;
+    @include logo-size(50px);
   }
-  
+
   .item-info > * {
     margin: 0;
   }
 }
-
