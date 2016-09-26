@@ -47,6 +47,8 @@ body {
 }
 
 .streamer {
+  border-bottom: 1px solid $bgcolor;
+
   a {
     color: inherit;
     display: flex;
