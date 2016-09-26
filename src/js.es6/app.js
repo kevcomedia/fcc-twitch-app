@@ -1,4 +1,6 @@
 const $ = require("jquery");
+const template = require("../templates/streamer.hbs");
+const templateForInvalid = require("../templates/streamer-invalid.hbs");
 
 function ajax(url) {
   return $.ajax({
@@ -25,24 +27,34 @@ const streamers = [
 streamers.forEach(streamer =>
   Promise.resolve(ajax(`https://api.twitch.tv/kraken/streams/${streamer}`))
   .then(function fulfilled(data) {
-    console.log(`${streamer} is online?`);
-    if (!data.stream) {
+    if (data.stream) {
+      $("#streamers-online").append(template({
+        url: data.stream.channel.url,
+        logo: data.stream.channel.logo,
+        altText: streamer,
+        name: streamer,
+        status: data.stream.channel.status
+      }));
+
+      // "Break" the promise chain after rendering online streamer.
+      // Hackish, but better than the previous hack.
+      return new Promise((resolve, reject) => { });
+    }
+    else {
       // Make another request for channel info
       return Promise.resolve(ajax(data._links.channel));
     }
-
-    // output to list of online streamers using template
-    // breaks the promise chain, since `undefined` is returned at this point
-    console.log(data.stream);
   })
   .then(function fulfilled(data) {
-    // output to list of offline streamers using template
-    console.log(`${streamer} channel`);
-    console.log(data);
+    $("#streamers-offline").append(template({
+      url: data.url,
+      logo: data.logo,
+      altText: streamer,
+      name: streamer,
+      status: "Offline"
+    }));
   })
   .catch(function rejected(err) {
-    // output to list of closed accounts
-    console.log(`${streamer} is closed`);
-    console.log(err);
+    $("#streamers-invalid").append(templateForInvalid({ name: streamer }));
   })
 );
