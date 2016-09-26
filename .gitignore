@@ -1,2 +1,4 @@
 node_modules
 src/js
+src/css/*
+!src/css/lib
