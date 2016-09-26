@@ -4,7 +4,7 @@
 
 $bgcolor: #6441A4;
 $text-color: black;
-
+$spaces: 10px;
 
 /*
   Mixins
@@ -43,7 +43,7 @@ body {
 .streamers-invalid .streamer {
   display: flex;
   flex-flow: row wrap;
-  padding: 10px;
+  padding: $spaces;
 }
 
 .streamer {
@@ -53,21 +53,22 @@ body {
     color: inherit;
     display: flex;
     flex-flow: row wrap;
-    padding: 10px;
+    padding: $spaces;
     text-decoration: none;
   }
 
   img {
     border-radius: 50%;
-    margin: auto;
-    margin : {
-      left: 0;
-      right: 10px;
-    }
+    margin: auto 0;
     @include logo-size(50px);
   }
 
-  .item-info > * {
-    margin: 0;
+  .streamer-info {
+    margin-left: $spaces;
+  }
+
+  .streamer-info > * {
+    margin-top: $spaces;
+    margin-bottom: $spaces;
   }
 }
