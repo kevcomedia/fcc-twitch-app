@@ -22,6 +22,12 @@ $spaces: 10px;
   height: $size;
 }
 
+@mixin streamer-flex() {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+
 /*
   Rules
  */
@@ -41,9 +47,8 @@ body {
 
 /* Probably not a good approach, but good enough for now. */
 .streamers-invalid .streamer {
-  display: flex;
-  flex-flow: row wrap;
   padding: $spaces;
+  @include streamer-flex();
 }
 
 .streamer {
@@ -51,10 +56,9 @@ body {
 
   a {
     color: inherit;
-    display: flex;
-    flex-flow: row wrap;
     padding: $spaces;
     text-decoration: none;
+    @include streamer-flex();
   }
 
   img {
