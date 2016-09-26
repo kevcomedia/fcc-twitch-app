@@ -26,6 +26,8 @@
     "browserify": "^13.1.0",
     "gulp": "^3.9.1",
     "gulp-jshint": "^2.0.1",
+    "handlebars": "^4.0.5",
+    "hbsfy": "^2.7.0",
     "jshint": "^2.9.3",
     "jshint-stylish": "^2.2.1",
     "vinyl-source-stream": "^1.1.0"
