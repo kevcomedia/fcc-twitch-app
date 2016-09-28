@@ -1,0 +1,103 @@
+/*
+  Variables
+ */
+
+$bgcolor: #6441A4;
+$text-color: black;
+$spaces: 10px;
+$hover-bgcolor: hsl(hue($bgcolor), saturation($bgcolor), lightness(white - 30));
+
+/*
+  Mixins
+ */
+
+@mixin gutter-margins($value) {
+  margin : {
+    left: $value;
+    right: $value;
+  }
+}
+
+@mixin logo-size($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin streamer-flex() {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+
+/*
+  Rules
+ */
+
+body {
+  background-color: $bgcolor;
+  color: $text-color;
+  @include gutter-margins(25%);
+}
+
+h1 {
+  color: white;
+  text-align: center;
+}
+
+.streamers {
+  background-color: white;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.streamers-online h2::after {
+  background-color: #0b0;
+  border-radius: 50%;
+  content: '';
+  height: 0.4em;
+  margin : {
+    left: 0.4em;
+    top: 0.4em;
+  }
+  position: absolute;
+  width: 0.4em;
+}
+
+/* Probably not a good approach, but good enough for now. */
+.streamers-invalid .streamer {
+  padding: $spaces;
+  @include streamer-flex();
+}
+
+.streamer {
+  border-bottom: 1px solid $bgcolor;
+
+  a {
+    color: inherit;
+    padding: $spaces;
+    text-decoration: none;
+    transition: all ease-out 0.2s;
+    @include streamer-flex();
+
+    &:hover {
+      background-color: $hover-bgcolor;
+      color: $bgcolor;
+    }
+  }
+
+  img {
+    border-radius: 50%;
+    margin: auto 0;
+    @include logo-size(50px);
+  }
+
+  .streamer-info {
+    margin-left: $spaces;
+  }
+
+  .streamer-info > * {
+    margin-top: $spaces;
+    margin-bottom: $spaces;
+  }
+}
