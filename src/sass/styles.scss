@@ -5,6 +5,7 @@
 $bgcolor: #6441A4;
 $text-color: black;
 $spaces: 10px;
+$hover-bgcolor: hsl(hue($bgcolor), saturation($bgcolor), lightness(white - 30));
 
 /*
   Mixins
@@ -58,7 +59,13 @@ body {
     color: inherit;
     padding: $spaces;
     text-decoration: none;
+    transition: all ease-out 0.2s;
     @include streamer-flex();
+
+    &:hover {
+      background-color: $hover-bgcolor;
+      color: $bgcolor;
+    }
   }
 
   img {
