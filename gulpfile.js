@@ -54,3 +54,8 @@ gulp.task("watch", ["browserSync", "babel", "sass"], function() {
   gulp.watch("src/js.es6/**/*.js", ["babel"]);
   gulp.watch("src/*.html", browserSync.reload);
 });
+
+gulp.task("deploy", ["useref"], function() {
+  return gulp.src("dist/**/*")
+    .pipe(deploy());
+});
