@@ -1,4 +1,5 @@
 const $ = require("jquery");
+const Promise = require("es6-promise").Promise;
 const template = require("../templates/streamer.hbs");
 const templateForInvalid = require("../templates/streamer-invalid.hbs");
 
