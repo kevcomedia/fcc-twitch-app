@@ -39,6 +39,11 @@ body {
   @include gutter-margins(25%);
 }
 
+h1 {
+  color: white;
+  text-align: center;
+}
+
 .streamers {
   background-color: white;
   list-style: none;
