@@ -46,6 +46,19 @@ body {
   padding: 0;
 }
 
+.streamers-online h2::after {
+  background-color: #0b0;
+  border-radius: 50%;
+  content: '';
+  height: 0.4em;
+  margin : {
+    left: 0.4em;
+    top: 0.4em;
+  }
+  position: absolute;
+  width: 0.4em;
+}
+
 /* Probably not a good approach, but good enough for now. */
 .streamers-invalid .streamer {
   padding: $spaces;
