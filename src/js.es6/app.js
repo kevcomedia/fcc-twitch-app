@@ -1,6 +1,5 @@
 const $ = require("jquery");
 const Promise = require("es6-promise").Promise;
-const template = require("../templates/streamer.hbs");
 const templateForInvalid = require("../templates/streamer-invalid.hbs");
 
 function ajax(url) {
@@ -9,6 +8,11 @@ function ajax(url) {
     type: "GET",
     headers: { "Client-ID": "4xgieexxnaaham3kdib2a7ti96x51ae" }
   });
+}
+
+function template({ streamer, status = "Offline", url, logo } = {}) {
+  const t = require("../templates/streamer.hbs");
+  return t({ streamer, status, url, logo });
 }
 
 const streamers = [
@@ -29,13 +33,9 @@ streamers.forEach(streamer =>
   Promise.resolve(ajax(`https://api.twitch.tv/kraken/streams/${streamer}`))
   .then(function fulfilled(data) {
     if (data.stream) {
-      $("#streamers-online").append(template({
-        url: data.stream.channel.url,
-        logo: data.stream.channel.logo,
-        altText: streamer,
-        name: streamer,
-        status: data.stream.channel.status
-      }));
+      const { url, logo, status } = data.stream.channel;
+      $("#streamers-online").append(
+        template({ url, logo, streamer, status }));
 
       // "Break" the promise chain after rendering online streamer.
       // Hackish, but better than the previous hack.
@@ -46,16 +46,10 @@ streamers.forEach(streamer =>
       return Promise.resolve(ajax(data._links.channel));
     }
   })
-  .then(function fulfilled(data) {
-    $("#streamers-offline").append(template({
-      url: data.url,
-      logo: data.logo,
-      altText: streamer,
-      name: streamer,
-      status: "Offline"
-    }));
+  .then(function fulfilled({ url, logo }) {
+    $("#streamers-offline").append(template({ url, logo, streamer }));
   })
   .catch(function rejected(err) {
-    $("#streamers-invalid").append(templateForInvalid({ name: streamer }));
+    $("#streamers-invalid").append(templateForInvalid({ streamer }));
   })
 );
